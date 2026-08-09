@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ MAGICAL 17TH BIRTHDAY CELEBRATION ✨</title>
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #feada6 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 15px;
+            color: #5a0e2d;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Ambient Floating Elements */
+        .ambient-floating {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            font-size: 2.2rem;
+            animation: floatUpDown 6s infinite ease-in-out;
+            opacity: 0.85;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-35px) rotate(18deg) scale(1.1); }
+        }
+
+        /* Floating Controls */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ff4f87;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #d81b60;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.35);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.15) rotate(12deg);
+        }
+
+        /* Main Glassmorphism Container */
+        .main-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-radius: 35px;
+            padding: 35px 25px;
+            max-width: 580px;
+            width: 100%;
+            box-shadow: 0 25px 50px rgba(176, 0, 91, 0.25);
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            z-index: 10;
+            position: relative;
+            transition: all 0.5s ease;
+            animation: cardEntrance 0.8s ease-out;
+        }
+
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Age Badge */
+        .age-badge {
+            background: linear-gradient(45deg, #ff4f87, #ff8fa3);
+            color: white;
+            padding: 8px 22px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(255, 79, 135, 0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 79, 135, 0.4); }
+            100% { transform: scale(1.05); box-shadow: 0 8px 22px rgba(255, 79, 135, 0.7); }
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            color: #b0005b;
+            font-size: 2.4rem;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 0px #ffccd5;
+            line-height: 1.2;
+        }
+
+        p.description {
+            font-size: 1.18rem;
+            line-height: 1.6;
+            color: #7a003c;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        /* Media Frame / GIF */
+        .hero-img-container {
+            position: relative;
+            display: inline-block;
+            margin: 15px 0 20px 0;
+        }
+
+        .hero-img {
+            max-width: 85%;
+            border-radius: 25px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            border: 5px solid #fff;
+            transform: rotate(-1.5deg);
+            transition: all 0.4s ease;
+        }
+
+        .hero-img:hover {
+            transform: rotate(0deg) scale(1.03);
+            box-shadow: 0 18px 35px rgba(216, 27, 96, 0.25);
+        }
+
+        /* Dynamic Progress Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #ffd1dc;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            height: 12px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 25%;
+            background: linear-gradient(90deg, #ff4f87, #d81b60, #fbbf24);
+            border-radius: 20px;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Action Buttons */
+        .btn {
+            background: linear-gradient(45deg, #ff4f87, #d81b60);
+            color: white;
+            border: none;
+            padding: 16px 36px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(216, 27, 96, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(216, 27, 96, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* Stage View Management */
+        .stage {
+            display: none;
+            animation: slideUpFade 0.6s ease forwards;
+        }
+
+        .stage.active {
+            display: block;
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(25px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* STAGE 2: Envelope Flip Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 25px 0;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 150px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.7s cubic-bezier(0.34, 1.3, 0.64, 1);
+            transform-style: preserve-3d;
+            border-radius: 20px;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            border: 2px solid #ffccd5;
+        }
+
+        .flip-card-front {
+            background: #fff0f5;
+            color: #b0005b;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .flip-card-front:hover {
+            border-color: #ff4f87;
+            transform: translateY(-3px);
+        }
+
+        .flip-card-front i {
+            font-size: 2.4rem;
+            margin-bottom: 8px;
+            color: #ff4f87;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, #ff4f87, #d81b60);
+            color: white;
+            transform: rotateY(180deg);
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* STAGE 3: Memory Polaroid */
+        .polaroid-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .polaroid-frame {
+            background: white;
+            padding: 14px 14px 22px 14px;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            max-width: 260px;
+            width: 100%;
+            transform: rotate(-2deg);
+            transition: all 0.4s ease;
+        }
+
+        .polaroid-frame:nth-child(2) {
+            transform: rotate(3deg);
+        }
+
+        .polaroid-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 18px 40px rgba(216, 27, 96, 0.25);
+            z-index: 5;
+        }
+
+        .polaroid-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .polaroid-caption {
+            font-family: 'Sacramento', cursive;
+            font-size: 1.8rem;
+            color: #7a003c;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* STAGE 4: Real-Time Audio Candle Blowing */
+        .cake-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 20px auto 10px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .candle-container {
+            position: absolute;
+            top: 22px;
+            display: flex;
+            gap: 20px;
+            z-index: 5;
+        }
+
+        .candle {
+            width: 14px;
+            height: 50px;
+            background: linear-gradient(to bottom, #ff9a9e, #fecfef);
+            border-radius: 6px;
+            position: relative;
+            pointer-events: none; /* strictly audio blow[cite: 5] */
+        }
+
+        .flame {
+            width: 16px;
+            height: 24px;
+            background: radial-gradient(ellipse at bottom, #ffee00 0%, #ff9000 60%, #ff4f87 100%);
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -24px;
+            left: -1px;
+            box-shadow: 0 0 18px #ff9000, 0 0 35px #ffee00;
+            animation: flicker 0.4s infinite alternate;
+            transition: all 0.4s ease;
+        }
+
+        .flame.extinguished {
+            opacity: 0;
+            transform: scale(0.1) translateY(10px);
+            animation: none;
+        }
+
+        .smoke {
+            width: 10px;
+            height: 24px;
+            background: rgba(220, 220, 220, 0.7);
+            border-radius: 50%;
+            position: absolute;
+            top: -28px;
+            left: 2px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .smoke.active {
+            animation: riseSmoke 1.8s ease-out forwards;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-3deg); }
+            100% { transform: scale(1.2) rotate(4deg); }
+        }
+
+        @keyframes riseSmoke {
+            0% { opacity: 0.9; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-50px) scale(3); }
+        }
+
+        .cake-graphic {
+            font-size: 140px;
+            line-height: 1;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Mic Meter Box */
+        .mic-box {
+            background: #fff0f5;
+            border: 2px dashed #ff4f87;
+            padding: 16px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .mic-status {
+            font-size: 0.98rem;
+            color: #d81b60;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blow-meter-bg {
+            width: 100%;
+            height: 12px;
+            background: #ffd1dc;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .blow-meter-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #38bdf8, #ff4f87);
+            transition: width 0.1s ease;
+        }
+
+        #finalMessageArea {
+            font-size: 1.15rem;
+            color: #7a003c;
+            line-height: 1.6;
+            margin-top: 20px;
+            background: #fff0f5;
+            padding: 22px;
+            border-radius: 25px;
+            border: 2px solid #ffb6c1;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            animation: slideUpFade 0.6s ease forwards;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.9rem; }
+            p.description { font-size: 1.05rem; }
+            .main-card { padding: 25px 18px; }
+            .cake-graphic { font-size: 115px; }
+            .btn { padding: 14px 28px; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio Player -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-times-158.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Toggle -->
+    <button class="music-btn" id="musicToggle" onclick="toggleAudio()" title="Toggle Music">
+        <i class="fa-solid fa-music" id="musicIcon"></i>
+    </button>
+
+    <!-- Background Emojis -->
+    <div class="ambient-floating" style="top: 8%; left: 6%; animation-delay: 0s;">🎈</div>
+    <div class="ambient-floating" style="top: 18%; right: 8%; animation-delay: 2s;">✨</div>
+    <div class="ambient-floating" style="bottom: 15%; left: 10%; animation-delay: 4s;">💖</div>
+    <div class="ambient-floating" style="bottom: 8%; right: 6%; animation-delay: 1s;">🎉</div>
+
+    <div class="main-card">
+        
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <!-- STAGE 1: Main Welcome -->
+        <div id="stage1" class="stage active">
+            <div class="age-badge">✨ Turning 17! ✨</div>
+            <h1>🎈 HAPPY BIRTHDAY !! 🎂</h1>
+            
+            <p class="description">
+                Happy 17th Birthday!! 🎉<br>
+                May your day be filled with lots of love, joy, and endless happiness 😃.<br>
+                Wishing you a wonderful year ahead! May all your biggest dreams come true! 💕💕
+            </p>
+
+            <div class="hero-img-container">
+                <img class="hero-img" 
+                     src="https://media.tenor.com/8X5NACJ_YV0AAAAm/pokemon-happybirthday.webp" 
+                     alt="Happy Birthday GIF"
+                     onerror="this.src='https://media.giphy.com/media/l1BgT1RS233wdvTPw/giphy.gif'">
+            </div>
+            
+            <br>
+            <button class="btn" onclick="goToNextStage(2)">
+                <span>Unwrap Surprises</span> <i class="fa-solid fa-gift"></i>
+            </button>
+        </div>
+
+        <!-- STAGE 2: Envelope Flip Cards -->
+        <div id="stage2" class="stage">
+            <div class="age-badge">💌 Open When...</div>
+            <h1>Tap To Reveal Cards! 💖</h1>
+            <p class="description">Click on each envelope card below to unlock special birthday notes!</p>
+
+            <div class="cards-grid">
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                            <span>Open for a Smile 😊</span>
+                        </div>
+                        <div class="flip-card-back">
+                            You are capable of achieving incredible things! Keep glowing ✨
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fa-solid fa-cookie-bite"></i>
+                            <span>Open for Treat 🍦</span>
+                        </div>
+                        <div class="flip-card-back">
+                            Entitled to 1x Unlimited Ice Cream & Chocolate Voucher! 🍫
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>Secret Wish 🌟</span>
+                        </div>
+                        <div class="flip-card-back">
+                            May your 17th year be your happiest and most memorable chapter yet! 👑
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="goToNextStage(3)">
+                <span>Special Memories</span> <i class="fa-solid fa-camera-retro"></i>
+            </button>
+        </div>
+
+        <!-- STAGE 3: Memory Showcase -->
+        <div id="stage3" class="stage">
+            <div class="age-badge">📸 Memory Lane</div>
+            <h1>A Special Snapshot 🖼️</h1>
+            <p class="description">Celebrating 17 years of being wonderful!</p>
+
+            <div class="polaroid-container">
+                <div class="polaroid-frame">
+                    <img class="polaroid-img" 
+                         src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=600&auto=format&fit=crop" 
+                         alt="Celebration">
+                    <div class="polaroid-caption">Best Times Ahead! ✨</div>
+                </div>
+                <div class="polaroid-frame">
+                    <img class="polaroid-img" 
+                         src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=600&auto=format&fit=crop" 
+                         alt="Party">
+                    <div class="polaroid-caption">Stay Awesome! 🥳</div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="goToNextStage(4)">
+                <span>Go To Cake Ceremony</span> <i class="fa-solid fa-cake-candles"></i>
+            </button>
+        </div>
+
+        <!-- STAGE 4: Real-Time Audio Blow Candle -->
+        <div id="stage4" class="stage">
+            <div class="age-badge">🎂 Grand Ceremony</div>
+            <h1 id="cakeTitle">Blow Air Into Mic! 🌬️</h1>
+            
+            <div class="cake-container">
+                <div class="candle-container">
+                    <div class="candle">
+                        <div id="flame1" class="flame"></div>
+                        <div id="smoke1" class="smoke"></div>
+                    </div>
+                    <div class="candle">
+                        <div id="flame2" class="flame"></div>
+                        <div id="smoke2" class="smoke"></div>
+                    </div>
+                </div>
+
+                <div id="cakeGraphic" class="cake-graphic">🎂</div>
+            </div>
+
+            <!-- Mic Blow Level Meter -->
+            <div class="mic-box" id="micBox">
+                <div class="mic-status" id="micStatusText">
+                    <i class="fa-solid fa-microphone text-rose-500"></i>
+                    <span>Click 'Enable Microphone' below so Chrome can request access!</span>
+                </div>
+                <div class="blow-meter-bg" id="meterBg">
+                    <div class="blow-meter-fill" id="blowMeter"></div>
+                </div>
+                <button class="btn" id="startMicBtn" style="padding: 12px 24px; font-size: 1.05rem; margin-top: 4px;" onclick="initMicBlowing()">
+                    <i class="fa-solid fa-microphone"></i> Enable Microphone
+                </button>
+            </div>
+
+            <br>
+
+            <button id="cutCakeBtn" class="btn" style="display:none;" onclick="cutCake()">
+                <span>🔪 Cut The Cake!</span>
+            </button>
+
+            <!-- Final Message -->
+            <div id="finalMessageArea" style="display:none;">
+                <p>
+                    ⚠️ <strong>IMPORTANT NOTICE:</strong><br><br>
+                    THIS CAKE IS ONLY FOR CUTTING & NOT FOR EATING! 😉<br>
+                    Wanna eat? Go outside, purchase one, and share it with me because you can't eat it alone! 🍰😋
+                    <br><br>
+                    ✨ <strong>ONCE AGAIN, HAPPPPPPYYYYYYYY BIRTHDAYYYYYYY! 🎊✨</strong>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentStage = 1;
+        let isAudioPlaying = false;
+        let isCandleBlown = false;
+        let isCakeCut = false;
+
+        // Audio & Microphone Variables
+        let micAudioContext, analyser, microphone, stream;
+
+        // Sound Synthesis Effect
+        function playChimeSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3);
+                gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.3);
+            } catch (e) {}
+        }
+
+        // Background Music
+        function toggleAudio() {
+            const music = document.getElementById('bgMusic');
+            const icon = document.getElementById('musicIcon');
+            
+            if (isAudioPlaying) {
+                music.pause();
+                icon.className = "fa-solid fa-music";
+                isAudioPlaying = false;
+            } else {
+                music.play().then(() => {
+                    icon.className = "fa-solid fa-pause";
+                    isAudioPlaying = true;
+                }).catch(err => {});
+            }
+        }
+
+        // Multi-Stage Controller
+        function goToNextStage(stageNum) {
+            playChimeSound();
+            
+            if (!isAudioPlaying && stageNum === 2) {
+                toggleAudio();
+            }
+
+            document.querySelectorAll('.stage').forEach(stage => {
+                stage.classList.remove('active');
+            });
+            
+            document.getElementById('stage' + stageNum).classList.add('active');
+            currentStage = stageNum;
+
+            const progress = (stageNum / 4) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            if (stageNum === 2 || stageNum === 3) {
+                confetti({ particleCount: 45, spread: 60, origin: { y: 0.7 } });
+            }
+        }
+
+        // Stage 2: Flip Cards
+        function flipCard(cardElement) {
+            playChimeSound();
+            cardElement.classList.toggle('flipped');
+            confetti({ particleCount: 25, spread: 45, origin: { y: 0.6 } });
+        }
+
+        // CHROME DIRECT USER GESTURE MIC INITIALIZER[cite: 5, 6]
+        async function initMicBlowing() {
+            if (isCandleBlown) return;
+
+            const statusText = document.getElementById('micStatusText');
+            const startBtn = document.getElementById('startMicBtn');
+            const meterBg = document.getElementById('meterBg');
+
+            try {
+                // Directly triggers browser prompt popup on user gesture[cite: 6]
+                stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                
+                micAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = micAudioContext.createAnalyser();
+                microphone = micAudioContext.createMediaStreamSource(stream);
+
+                analyser.fftSize = 256;
+                microphone.connect(analyser);
+
+                statusText.innerHTML = `<i class="fa-solid fa-wind" style="color: #0ea5e9;"></i> <span>Now blow air directly into your mic! 🌬️</span>`;
+                startBtn.style.display = 'none';
+                meterBg.style.display = 'block';
+
+                detectBlowNoise();
+            } catch (err) {
+                console.error("Microphone Access Error:", err);
+                if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+                    statusText.innerHTML = `<i class="fa-solid fa-lock" style="color: #ef4444;"></i> <span>Permission Denied! Click the lock icon in Chrome's address bar to Allow Mic.</span>`;
+                } else {
+                    statusText.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color: #f59e0b;"></i> <span>Mic setup failed. Please try again!</span>`;
+                }
+                startBtn.style.display = 'inline-block';
+            }
+        }
+
+        function detectBlowNoise() {
+            if (isCandleBlown) return;
+
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            analyser.getByteFrequencyData(dataArray);
+
+            // Calculate high-frequency white noise created when blowing into mic[cite: 5]
+            let sum = 0;
+            for (let i = 15; i < bufferLength; i++) {
+                sum += dataArray[i];
+            }
+            let averageHighFreqNoise = sum / (bufferLength - 15);
+
+            // Update UI Visual Meter
+            const meterFill = document.getElementById('blowMeter');
+            let percentage = Math.min(100, (averageHighFreqNoise / 50) * 100);
+            if (meterFill) meterFill.style.width = percentage + '%';
+
+            // Blow detection sensitivity threshold
+            if (averageHighFreqNoise > 38) {
+                extinguishCandleAudio();
+                return;
+            }
+
+            requestAnimationFrame(detectBlowNoise);
+        }
+
+        function extinguishCandleAudio() {
+            if (isCandleBlown) return;
+            isCandleBlown = true;
+
+            playChimeSound();
+
+            document.getElementById('flame1').classList.add('extinguished');
+            document.getElementById('flame2').classList.add('extinguished');
+            document.getElementById('smoke1').classList.add('active');
+            document.getElementById('smoke2').classList.add('active');
+
+            const title = document.getElementById('cakeTitle');
+            const cutBtn = document.getElementById('cutCakeBtn');
+            const micBox = document.getElementById('micBox');
+
+            title.innerHTML = "Wish Made! ✨";
+            micBox.style.display = "none";
+            cutBtn.style.display = "inline-flex";
+
+            // Turn off microphone input
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+
+            confetti({
+                particleCount: 95,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#ffee00', '#ff9000', '#ff4f87', '#38bdf8']
+            });
+        }
+
+        // Stage 4: Cut Cake Logic
+        function cutCake() {
+            if (isCakeCut) return;
+            playChimeSound();
+
+            const cakeGraphic = document.getElementById('cakeGraphic');
+            const finalMessage = document.getElementById('finalMessageArea');
+            const cutBtn = document.getElementById('cutCakeBtn');
+            const title = document.getElementById('cakeTitle');
+
+            cakeGraphic.innerHTML = "🍰";
+            finalMessage.style.display = "block";
+            cutBtn.style.display = "none";
+            title.innerHTML = "🎉 Happy 17th Birthday! 🎉";
+            isCakeCut = true;
+
+            // Grand Finale Multi-Burst Fireworks
+            var duration = 3.5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+
+                var particleCount = 50 * (timeLeft / duration);
+
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
+                }));
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
+                }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>

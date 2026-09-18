@@ -287,7 +287,7 @@
             display: block;
         }
 
-        /* ---------------- PAGE 2: WISHES & QUESTION FLOW ---------------- */
+        /* ---------------- PAGE 2: WISHES ---------------- */
         .wishes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -324,115 +324,6 @@
         .wish-card p {
             font-size: 0.9rem;
             color: #9d174d;
-        }
-
-        .question-box {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 25px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-            width: 100%;
-            margin-top: 15px;
-            position: relative;
-            min-height: 150px;
-        }
-
-        .question-title {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: #9333ea;
-            margin-bottom: 20px;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-            position: relative;
-            min-height: 60px;
-        }
-
-        .btn-yes {
-            background: linear-gradient(45deg, #10b981, #059669);
-            color: white;
-            padding: 12px 32px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
-            transition: transform 0.2s ease;
-            z-index: 2;
-        }
-
-        .btn-yes:hover {
-            transform: scale(1.08);
-        }
-
-        .btn-no {
-            background: linear-gradient(45deg, #ef4444, #dc2626);
-            color: white;
-            padding: 12px 32px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
-            transition: all 0.15s ease-out;
-            z-index: 2;
-        }
-
-        /* Modal Popup for "Are you sure?" */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.45);
-            backdrop-filter: blur(5px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-        }
-
-        .modal-card {
-            background: white;
-            padding: 30px;
-            border-radius: 25px;
-            text-align: center;
-            max-width: 360px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-            position: relative;
-        }
-
-        /* Toast Popup for "Just kidding!!" */
-        .toast-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.7);
-            background: #ffffff;
-            border: 3px solid #ec4899;
-            padding: 25px 40px;
-            border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            z-index: 200;
-            display: none;
-            text-align: center;
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .toast-popup.show {
-            display: block;
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
         }
 
         /* ---------------- PAGE 3: CAKE ANIMATION & MIC ---------------- */
@@ -653,7 +544,7 @@
             </div>
         </div>
 
-        <!-- ================= PAGE 2: WISHES & QUESTION FLOW ================= -->
+        <!-- ================= PAGE 2: WISHES ================= -->
         <div id="page2" class="page">
             <h1 style="font-family:'Fredoka One', cursive; color:#831843; margin-bottom:10px;">✨ Special Birthday Notes ✨</h1>
             
@@ -675,15 +566,9 @@
                 </div>
             </div>
 
-            <!-- Question Box -->
-            <div class="question-box">
-                <div class="question-title">Do you like me? 🥺</div>
-                <div class="btn-group" id="btnGroup1">
-                    <button class="btn-yes" onclick="handleFirstYes()">Yes! 💖</button>
-                    <!-- Fixed No Button (Does not dodge on first question) -->
-                    <button class="btn-no" id="noBtn1" onclick="handleFirstNo()">No 😜</button>
-                </div>
-            </div>
+            <button class="btn" onclick="goToPage(3)">
+                <span>Next Page</span> <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </div>
 
         <!-- ================= PAGE 3: ANIMATED CAKE FORMATION & MIC ================= -->
@@ -714,23 +599,6 @@
             </div>
         </div>
 
-    </div>
-
-    <!-- "ARE YOU SURE?" MODAL (POP-UP WHEN clicking NO ON FIRST QUESTION) -->
-    <div class="modal-overlay" id="sureModal">
-        <div class="modal-card">
-            <h2 style="color:#831843; margin-bottom:15px; font-family:'Fredoka One', cursive;">Are you sure? 🥺✨</h2>
-            <div class="btn-group" id="btnGroup2" style="margin-top:20px;">
-                <button class="btn-yes" onclick="confirmYesAnswer()">Yes, 100%! 💕</button>
-                <!-- Moving No Button on 2nd Question -->
-                <button class="btn-no" id="noBtn2" onmouseover="dodgeNoButton(this)" onclick="dodgeNoButton(this)" style="position: absolute; right: 20px;">No 🙈</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- "JUST KIDDING!!" TOAST POPUP -->
-    <div class="toast-popup" id="justKiddingToast">
-        <h2 style="font-family:'Fredoka One', cursive; color:#d946ef; font-size: 2rem;">Just kidding!! 😜💖</h2>
     </div>
 
     <!-- SKY LANTERN NIGHT FINALE OVERLAY -->
@@ -913,36 +781,6 @@
             }
 
             typeHeading();
-        }
-
-        /* ================= PAGE 2: QUESTION LOGIC ================= */
-        function handleFirstYes() {
-            playSound('pop');
-            const toast = document.getElementById('justKiddingToast');
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-                goToPage(3);
-            }, 1600);
-        }
-
-        function handleFirstNo() {
-            playSound('pop');
-            document.getElementById('sureModal').style.display = 'flex';
-        }
-
-        function dodgeNoButton(btn) {
-            playSound('pop');
-            const x = Math.random() * 180 - 90;
-            const y = Math.random() * 140 - 70;
-            btn.style.transform = `translate(${x}px, ${y}px)`;
-        }
-
-        function confirmYesAnswer() {
-            playSound('pop');
-            document.getElementById('sureModal').style.display = 'none';
-            confetti({ particleCount: 80, spread: 80, origin: { y: 0.5 } });
-            goToPage(3);
         }
 
         /* ================= PAGE 3: CAKE FORMATION ANIMATION ================= */

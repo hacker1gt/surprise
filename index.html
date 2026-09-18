@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ A Magical 17th Birthday Present ✨</title>
+    <title>✨ A Magical Birthday Present ✨</title>
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka+One&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka+One&family=Quicksand:wght@500;700&family=Sacramento&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -74,8 +74,8 @@
         .card-container {
             position: relative;
             z-index: 10;
-            width: 90%;
-            max-width: 620px;
+            width: 95%;
+            max-width: 680px;
             min-height: 520px;
             display: flex;
             flex-direction: column;
@@ -118,6 +118,7 @@
             align-items: center;
             gap: 10px;
             margin-top: 20px;
+            z-index: 5;
         }
 
         .btn:hover {
@@ -125,95 +126,159 @@
             box-shadow: 0 12px 25px rgba(255, 107, 139, 0.6);
         }
 
-        /* ---------------- PAGE 1: FLOATING LETTER ---------------- */
+        /* ---------------- PAGE 1: REALISTIC ENVELOPE & DESIGNER CARD ---------------- */
         .envelope-wrapper {
             position: relative;
             cursor: pointer;
             animation: floatEnvelope 4s ease-in-out infinite;
+            perspective: 1000px;
+            margin: 20px auto;
         }
 
         @keyframes floatEnvelope {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-18px) rotate(2deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
         }
 
+        /* Realistic Envelope Design */
         .envelope {
-            width: 280px;
-            height: 180px;
-            background: #ff758c;
-            border-radius: 15px;
+            width: 380px;
+            height: 250px;
+            background: #fdfbf7;
+            border-radius: 12px;
             position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.2), inset 0 0 15px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 3px solid #ffffff;
+            border: 2px solid #e2d9cd;
+            overflow: hidden;
         }
 
-        .ribbon {
+        /* Envelope Flaps */
+        .envelope::before {
+            content: '';
             position: absolute;
-            width: 100%;
-            height: 30px;
-            background: #ff2a5f;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 190px solid #f4eae1;
+            border-right: 190px solid #f4eae1;
+            border-bottom: 130px solid transparent;
+            z-index: 3;
+            transform-origin: top;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .envelope::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 190px solid #eae0d5;
+            border-right: 190px solid #eae0d5;
+            border-top: 140px solid transparent;
+            z-index: 2;
+        }
+
+        /* Real Wax Seal Stamp */
+        .wax-seal {
+            position: absolute;
+            z-index: 4;
+            width: 55px;
+            height: 55px;
+            background: radial-gradient(circle, #b91c1c 0%, #7f1d1d 100%);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .ribbon-bow {
-            font-size: 2.2rem;
-            color: #fff;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            color: #fef08a;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3), inset 0 0 8px rgba(0,0,0,0.4);
+            border: 2px dashed #991b1b;
         }
 
         .click-hint {
-            margin-top: 18px;
-            font-size: 1.1rem;
+            margin-top: 22px;
+            font-size: 1.15rem;
             font-weight: bold;
             color: #6b21a8;
-            background: rgba(255,255,255,0.7);
-            padding: 6px 18px;
-            border-radius: 20px;
+            background: rgba(255,255,255,0.85);
+            padding: 8px 22px;
+            border-radius: 25px;
             backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
 
-        /* Opened Letter Parchment Paper */
+        /* Pretty Designer Card Interior */
         .parchment {
             background: #ffffff;
-            border-radius: 25px;
-            padding: 30px 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-            border: 2px solid #ffe3ec;
+            border-radius: 20px;
+            padding: 40px 30px 30px 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            border: 3px solid #f472b6;
             width: 100%;
+            max-width: 520px;
             display: none;
             flex-direction: column;
             align-items: center;
             position: relative;
+            overflow: hidden;
+        }
+
+        /* Floral Edges Decor */
+        .flower-corner {
+            position: absolute;
+            font-size: 2rem;
+            pointer-events: none;
+        }
+        .top-left { top: 10px; left: 12px; }
+        .top-right { top: 10px; right: 12px; }
+        .bottom-left { bottom: 10px; left: 12px; }
+        .bottom-right { bottom: 10px; right: 12px; }
+
+        /* Anatomical Real Heart SVG Centerpiece */
+        .heart-svg-container {
+            width: 110px;
+            height: 110px;
+            margin: 10px 0;
+            filter: drop-shadow(0 6px 12px rgba(225, 29, 72, 0.3));
+            animation: pulseHeart 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulseHeart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
         }
 
         .type-heading {
             font-family: 'Fredoka One', cursive;
             color: #d946ef;
-            font-size: 2rem;
-            margin-bottom: 15px;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
             min-height: 2.5rem;
         }
 
         .type-text {
             font-family: 'Caveat', cursive;
-            font-size: 1.7rem;
+            font-size: 1.75rem;
             color: #4a0e2d;
             line-height: 1.4;
-            min-height: 6rem;
+            min-height: 5.5rem;
             text-align: center;
+            z-index: 2;
         }
 
         .gif-container {
             margin-top: 15px;
-            max-width: 170px;
+            max-width: 160px;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            z-index: 2;
         }
 
         .gif-container img {
@@ -222,7 +287,7 @@
             display: block;
         }
 
-        /* ---------------- PAGE 2: GIRLY WISHES & PLAYFUL QUESTIONS ---------------- */
+        /* ---------------- PAGE 2: WISHES & QUESTION FLOW ---------------- */
         .wishes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -263,33 +328,35 @@
 
         .question-box {
             background: #ffffff;
-            padding: 22px;
+            padding: 25px;
             border-radius: 25px;
             box-shadow: 0 12px 30px rgba(0,0,0,0.1);
             width: 100%;
             margin-top: 15px;
             position: relative;
+            min-height: 150px;
         }
 
         .question-title {
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: #9333ea;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .btn-group {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            gap: 25px;
             position: relative;
-            min-height: 50px;
+            min-height: 60px;
         }
 
         .btn-yes {
             background: linear-gradient(45deg, #10b981, #059669);
             color: white;
-            padding: 10px 28px;
+            padding: 12px 32px;
             font-size: 1.1rem;
             font-weight: bold;
             border-radius: 30px;
@@ -297,6 +364,7 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
             transition: transform 0.2s ease;
+            z-index: 2;
         }
 
         .btn-yes:hover {
@@ -306,15 +374,15 @@
         .btn-no {
             background: linear-gradient(45deg, #ef4444, #dc2626);
             color: white;
-            padding: 10px 28px;
+            padding: 12px 32px;
             font-size: 1.1rem;
             font-weight: bold;
             border-radius: 30px;
             border: none;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
-            position: absolute;
             transition: all 0.15s ease-out;
+            z-index: 2;
         }
 
         /* Modal Popup for "Are you sure?" */
@@ -324,8 +392,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(5px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -334,16 +402,40 @@
 
         .modal-card {
             background: white;
-            padding: 28px;
+            padding: 30px;
             border-radius: 25px;
             text-align: center;
-            max-width: 340px;
+            max-width: 360px;
             width: 90%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
             position: relative;
         }
 
-        /* ---------------- PAGE 3: CAKE & MIC BLOWING ---------------- */
+        /* Toast Popup for "Just kidding!!" */
+        .toast-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            background: #ffffff;
+            border: 3px solid #ec4899;
+            padding: 25px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            z-index: 200;
+            display: none;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast-popup.show {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* ---------------- PAGE 3: CAKE ANIMATION & MIC ---------------- */
         .cake-stage {
             display: flex;
             flex-direction: column;
@@ -352,7 +444,7 @@
         }
 
         #cakeCanvas {
-            max-width: 320px;
+            max-width: 340px;
             width: 100%;
             height: auto;
             border-radius: 20px;
@@ -361,7 +453,7 @@
 
         .mic-panel {
             background: white;
-            padding: 15px 20px;
+            padding: 18px 24px;
             border-radius: 20px;
             margin-top: 15px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.08);
@@ -373,7 +465,7 @@
             background: linear-gradient(45deg, #06b6d4, #3b82f6);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 25px;
             font-weight: bold;
             cursor: pointer;
@@ -400,24 +492,110 @@
             transition: width 0.1s ease;
         }
 
-        /* Dark Pink Heart Finale Overlay */
+        /* SKY LANTERN FINALE OVERLAY */
         #finaleOverlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #05030a;
+            background: #020617;
             z-index: 1000;
             display: none;
             opacity: 0;
-            transition: opacity 1.2s ease-in-out;
+            transition: opacity 1.5s ease-in-out;
         }
 
-        #finaleCanvas {
+        .sky-bg {
+            position: absolute;
             width: 100%;
             height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(ellipse at bottom, #1e1b4b 0%, #020617 100%);
+        }
+
+        /* Stars */
+        .star {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            box-shadow: 0 0 6px #ffffff;
+        }
+
+        /* Sky Lantern Interactive Element */
+        .lantern-container {
+            position: absolute;
+            left: 50%;
+            top: 55%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .lantern-container:hover {
+            transform: translate(-50%, -52%) scale(1.03);
+        }
+
+        .lantern-svg-wrapper {
+            width: 140px;
+            height: 190px;
+            filter: drop-shadow(0 0 25px rgba(251, 146, 60, 0.8));
+            animation: gentleSway 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes gentleSway {
+            0% { transform: rotate(-3deg); }
+            100% { transform: rotate(3deg); }
+        }
+
+        .lantern-instruction {
+            color: #fed7aa;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3rem;
+            margin-top: 15px;
+            text-shadow: 0 0 12px rgba(251, 146, 60, 0.9);
+            letter-spacing: 1px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; text-shadow: 0 0 20px rgba(251, 146, 60, 1); }
+        }
+
+        /* Final Wish Message Text */
+        .final-wish-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 650px;
+            text-align: center;
+            color: #fff1f2;
+            font-family: 'Caveat', cursive;
+            font-size: 2.3rem;
+            line-height: 1.4;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+            text-shadow: 0 0 15px rgba(244, 114, 182, 0.8), 0 0 25px rgba(251, 146, 60, 0.6);
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .final-wish-text .signature {
+            font-family: 'Sacramento', cursive;
+            font-size: 3.2rem;
             display: block;
+            margin-top: 15px;
+            color: #f472b6;
         }
     </style>
 </head>
@@ -429,26 +607,44 @@
     <!-- MAIN APP CONTAINER -->
     <div class="card-container">
 
-        <!-- ================= PAGE 1: FLOATING LETTER ================= -->
+        <!-- ================= PAGE 1: REALISTIC ENVELOPE & CARD ================= -->
         <div id="page1" class="page active">
-            <!-- Initial Floating Envelope -->
+            <!-- Initial Larger & Realistic Floating Envelope -->
             <div id="envelopeWrapper" class="envelope-wrapper" onclick="openLetter()">
                 <div class="envelope">
-                    <div class="ribbon">
-                        <i class="fa-solid fa-ribbon ribbon-bow"></i>
+                    <div class="wax-seal">
+                        <i class="fa-solid fa-heart"></i>
                     </div>
                 </div>
-                <div class="click-hint">✨ Tap to open your letter! ✨</div>
+                <div class="click-hint">✨ Tap to open your birthday letter! ✨</div>
             </div>
 
-            <!-- Parchment Paper Revealed Inside -->
+            <!-- Pretty Designer Card Inside -->
             <div id="parchmentPaper" class="parchment">
+                <!-- Floral Decor Edges -->
+                <div class="flower-corner top-left">🌸🌷</div>
+                <div class="flower-corner top-right">🌺🌸</div>
+                <div class="flower-corner bottom-left">🌺✨</div>
+                <div class="flower-corner bottom-right">🌷🌸</div>
+
+                <!-- Big Anatomical Heart Diagram -->
+                <div class="heart-svg-container">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 88C50 88 15 62 15 35C15 21 25 12 37 12C44 12 48 16 50 19C52 16 56 12 63 12C75 12 85 21 85 35C85 62 50 88 50 88Z" fill="#e11d48" stroke="#9f1239" stroke-width="3"/>
+                        <!-- Anatomical Aorta and Vein Details -->
+                        <path d="M42 15V6C42 3.8 43.8 2 46 2H48C50.2 2 52 3.8 52 6V13" stroke="#be123c" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M56 14V8C56 5.8 57.8 4 60 4H62C64.2 4 66 5.8 66 8V16" stroke="#9f1239" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M30 30C35 32 40 28 42 22" stroke="#fda4af" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M68 32C64 42 58 52 50 62" stroke="#be123c" stroke-width="2" stroke-dasharray="2 3"/>
+                    </svg>
+                </div>
+
                 <div id="typeHeading" class="type-heading"></div>
                 <div id="typeSentence" class="type-text"></div>
 
                 <!-- Embedded GIF -->
                 <div class="gif-container">
-                    <img src="https://imgs.search.brave.com/lrivizWDkbkv1dn8XarL8LCs5JgU1IHzFZ-12sbp7CY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS50ZW5vci5jb20v/UnZGekV0azlkMUVB/QUFBbS9wZWFjaC1n/b21hLndlYnA" alt="Peach Goma Cute Hug">
+                    <img src="https://imgs.search.brave.com/lrivizWDkbkv1dn8XarL8LCs5JgU1IHzFZ-12sbp7CY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS50ZW5vci5jb20v/UnZGekV0azlkMUVB/QUFBbS9wZWFjaC1n/b21hLndlYnA" alt="Cute Hug">
                 </div>
 
                 <button id="p1NextBtn" class="btn" style="display:none;" onclick="goToPage(2)">
@@ -457,7 +653,7 @@
             </div>
         </div>
 
-        <!-- ================= PAGE 2: WISHES & QUESTION ================= -->
+        <!-- ================= PAGE 2: WISHES & QUESTION FLOW ================= -->
         <div id="page2" class="page">
             <h1 style="font-family:'Fredoka One', cursive; color:#831843; margin-bottom:10px;">✨ Special Birthday Notes ✨</h1>
             
@@ -483,19 +679,20 @@
             <div class="question-box">
                 <div class="question-title">Do you like me? 🥺</div>
                 <div class="btn-group" id="btnGroup1">
-                    <button class="btn-yes" onclick="showSureModal()">Yes! 💖</button>
-                    <button class="btn-no" id="noBtn1" onmouseover="dodgeNoButton(this)" onclick="dodgeNoButton(this)" style="right: 20px;">No 😜</button>
+                    <button class="btn-yes" onclick="handleFirstYes()">Yes! 💖</button>
+                    <!-- Fixed No Button (Does not dodge on first question) -->
+                    <button class="btn-no" id="noBtn1" onclick="handleFirstNo()">No 😜</button>
                 </div>
             </div>
         </div>
 
-        <!-- ================= PAGE 3: REALISTIC CAKE & MIC BLOWING ================= -->
+        <!-- ================= PAGE 3: ANIMATED CAKE FORMATION & MIC ================= -->
         <div id="page3" class="page">
             <h1 id="cakeHeaderTitle" style="font-family:'Fredoka One', cursive; color:#831843; margin-bottom:12px;">🎂 Time For The Cake!</h1>
             
             <div class="cake-stage">
-                <!-- Realistic Canvas Rendered Chocolate Cake -->
-                <canvas id="cakeCanvas" width="320" height="320"></canvas>
+                <!-- Canvas Rendered Animated Cake -->
+                <canvas id="cakeCanvas" width="340" height="340"></canvas>
 
                 <!-- Mic Panel -->
                 <div class="mic-panel" id="micPanel">
@@ -519,20 +716,62 @@
 
     </div>
 
-    <!-- ARE YOU SURE MODAL (PAGE 2) -->
+    <!-- "ARE YOU SURE?" MODAL (POP-UP WHEN clicking NO ON FIRST QUESTION) -->
     <div class="modal-overlay" id="sureModal">
         <div class="modal-card">
             <h2 style="color:#831843; margin-bottom:15px; font-family:'Fredoka One', cursive;">Are you sure? 🥺✨</h2>
             <div class="btn-group" id="btnGroup2" style="margin-top:20px;">
                 <button class="btn-yes" onclick="confirmYesAnswer()">Yes, 100%! 💕</button>
-                <button class="btn-no" id="noBtn2" onmouseover="dodgeNoButton(this)" onclick="dodgeNoButton(this)" style="right: 10px;">No 🙈</button>
+                <!-- Moving No Button on 2nd Question -->
+                <button class="btn-no" id="noBtn2" onmouseover="dodgeNoButton(this)" onclick="dodgeNoButton(this)" style="position: absolute; right: 20px;">No 🙈</button>
             </div>
         </div>
     </div>
 
-    <!-- DARK PINK HEART FINALE OVERLAY -->
+    <!-- "JUST KIDDING!!" TOAST POPUP -->
+    <div class="toast-popup" id="justKiddingToast">
+        <h2 style="font-family:'Fredoka One', cursive; color:#d946ef; font-size: 2rem;">Just kidding!! 😜💖</h2>
+    </div>
+
+    <!-- SKY LANTERN NIGHT FINALE OVERLAY -->
     <div id="finaleOverlay">
-        <canvas id="finaleCanvas"></canvas>
+        <div class="sky-bg" id="skyBg"></div>
+        <div id="starsContainer"></div>
+
+        <!-- Floating Sky Lantern Button -->
+        <div class="lantern-container" id="lanternContainer" onclick="releaseLantern()">
+            <div class="lantern-svg-wrapper">
+                <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Lantern Outer Shade Glow -->
+                    <path d="M20 30 C20 10, 80 10, 80 30 L88 100 C88 115, 12 115, 12 100 Z" fill="url(#lanternGradient)" stroke="#fb923c" stroke-width="2"/>
+                    <!-- Lantern Frame Lines -->
+                    <path d="M50 15 L50 110" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3 2"/>
+                    <path d="M30 22 C40 30, 60 30, 70 22" stroke="#f97316" stroke-width="1.5"/>
+                    <path d="M20 60 C35 70, 65 70, 80 60" stroke="#f97316" stroke-width="1.5"/>
+                    <path d="M15 90 C35 100, 65 100, 85 90" stroke="#f97316" stroke-width="1.5"/>
+                    <!-- Bottom Ring -->
+                    <ellipse cx="50" cy="110" rx="38" ry="8" fill="#c2410c" stroke="#ea580c" stroke-width="2"/>
+                    <!-- Inner Fire Flame Glow -->
+                    <circle cx="50" cy="106" r="10" fill="#fef08a" filter="drop-shadow(0 0 8px #f97316)"/>
+                    <ellipse cx="50" cy="106" rx="5" ry="7" fill="#ffffff"/>
+                    
+                    <defs>
+                        <linearGradient id="lanternGradient" x1="50" y1="10" x2="50" y2="110" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#ffed4a"/>
+                            <stop offset="40%" stop-color="#fb923c"/>
+                            <stop offset="100%" stop-color="#ea580c"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="lantern-instruction">make one birthday wish</div>
+        </div>
+
+        <!-- Final Floating Fade Text -->
+        <div class="final-wish-text" id="finalWishText">
+            "may every wish you make today find its way to the star."
+            <span class="signature">happy 17th birthday. Sara♥</span>
+        </div>
     </div>
 
     <script>
@@ -585,13 +824,13 @@
                     gain.gain.setValueAtTime(0.25, now);
                     gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
                     osc.start(now); osc.stop(now + 0.4);
-                } else if (type === 'heart') {
+                } else if (type === 'float') {
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(440, now);
-                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.8);
+                    osc.frequency.setValueAtTime(350, now);
+                    osc.frequency.exponentialRampToValueAtTime(700, now + 1.5);
                     gain.gain.setValueAtTime(0.15, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.8);
-                    osc.start(now); osc.stop(now + 0.8);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 1.5);
+                    osc.start(now); osc.stop(now + 1.5);
                 }
             } catch (e) {}
         }
@@ -631,7 +870,7 @@
             document.getElementById('page' + pageNum).classList.add('active');
 
             if (pageNum === 3) {
-                drawRealisticCake(true);
+                animateCakeFormation();
             }
         }
 
@@ -642,7 +881,7 @@
             const parchment = document.getElementById('parchmentPaper');
             parchment.style.display = 'flex';
 
-            confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+            confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
 
             const headingText = "Happy 17th Birthday!";
             const sentenceText = "Wishing you a supercalifragilisticexpialidocious & happiest birthday today! May your life get easier this year and you do such a lot of great things. 💕✨";
@@ -676,17 +915,27 @@
             typeHeading();
         }
 
-        /* ================= PAGE 2: DODGING NO BUTTON ================= */
-        function dodgeNoButton(btn) {
+        /* ================= PAGE 2: QUESTION LOGIC ================= */
+        function handleFirstYes() {
             playSound('pop');
-            const x = Math.random() * 160 - 80;
-            const y = Math.random() * 120 - 60;
-            btn.style.transform = `translate(${x}px, ${y}px)`;
+            const toast = document.getElementById('justKiddingToast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                goToPage(3);
+            }, 1600);
         }
 
-        function showSureModal() {
+        function handleFirstNo() {
             playSound('pop');
             document.getElementById('sureModal').style.display = 'flex';
+        }
+
+        function dodgeNoButton(btn) {
+            playSound('pop');
+            const x = Math.random() * 180 - 90;
+            const y = Math.random() * 140 - 70;
+            btn.style.transform = `translate(${x}px, ${y}px)`;
         }
 
         function confirmYesAnswer() {
@@ -696,16 +945,34 @@
             goToPage(3);
         }
 
-        /* ================= PAGE 3: REALISTIC CAKE & MIC FIX ================= */
+        /* ================= PAGE 3: CAKE FORMATION ANIMATION ================= */
         let candleLit = true;
         let micStream, audioContextMic, analyserMic;
+        let cakeAnimProgress = 0;
 
-        function drawRealisticCake(isLit = true, isCut = false) {
+        function animateCakeFormation() {
+            cakeAnimProgress = 0;
+            function step() {
+                cakeAnimProgress += 0.025;
+                drawRealisticCake(true, false, Math.min(1, cakeAnimProgress));
+                if (cakeAnimProgress < 1) {
+                    requestAnimationFrame(step);
+                }
+            }
+            step();
+        }
+
+        function drawRealisticCake(isLit = true, isCut = false, scaleFactor = 1) {
             const canvas = document.getElementById('cakeCanvas');
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             const cx = canvas.width / 2;
+
+            ctx.save();
+            ctx.translate(cx, canvas.height / 2);
+            ctx.scale(scaleFactor, scaleFactor);
+            ctx.translate(-cx, -canvas.height / 2);
 
             // Plate
             ctx.beginPath();
@@ -785,11 +1052,13 @@
                     ctx.fill();
                 }
             });
+
+            ctx.restore();
         }
 
         // Tap candle manual blow fallback
         document.getElementById('cakeCanvas').addEventListener('click', () => {
-            if (candleLit) extinguishCandles();
+            if (candleLit && cakeAnimProgress >= 1) extinguishCandles();
         });
 
         async function initMicrophone() {
@@ -844,7 +1113,7 @@
         function extinguishCandles() {
             playSound('blow');
             candleLit = false;
-            drawRealisticCake(false, false);
+            drawRealisticCake(false, false, 1);
             confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
 
             document.getElementById('micPanel').style.display = 'none';
@@ -854,94 +1123,54 @@
             if (micStream) micStream.getTracks().forEach(t => t.stop());
         }
 
-        /* ================= DARK PINK HEART FINALE ================= */
+        /* ================= SKY LANTERN NIGHT FINALE ================= */
         function cutCakeAndTriggerFinale() {
             playSound('cut');
-            drawRealisticCake(false, true);
+            drawRealisticCake(false, true, 1);
             confetti({ particleCount: 100, spread: 90, origin: { y: 0.5 } });
 
             setTimeout(() => {
                 const overlay = document.getElementById('finaleOverlay');
                 overlay.style.display = 'block';
                 setTimeout(() => overlay.style.opacity = '1', 50);
-                startGlowingPinkHeartEngine();
-            }, 1200);
+            }, 1000);
         }
 
-        function startGlowingPinkHeartEngine() {
-            playSound('heart');
-            const canvas = document.getElementById('finaleCanvas');
-            const ctx = canvas.getContext('2d');
+        function releaseLantern() {
+            playSound('float');
+            const lantern = document.getElementById('lanternContainer');
+            lantern.style.pointerEvents = 'none';
 
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            // Floating sky animation
+            lantern.style.transition = 'all 4s cubic-bezier(0.25, 1, 0.5, 1)';
+            lantern.style.top = '-200px';
+            lantern.style.transform = 'translate(-50%, 0) scale(0.35)';
+            lantern.style.opacity = '0';
 
-            const cx = canvas.width / 2;
-            const cy = canvas.height / 2 - 30;
+            // Generate tiny twinkling stars appearing in sky
+            setTimeout(() => {
+                const starsContainer = document.getElementById('starsContainer');
+                for (let i = 0; i < 90; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    const size = Math.random() * 3 + 1;
+                    star.style.width = size + 'px';
+                    star.style.height = size + 'px';
+                    star.style.left = Math.random() * 100 + 'vw';
+                    star.style.top = Math.random() * 100 + 'vh';
+                    starsContainer.appendChild(star);
 
-            const particleCount = 450;
-            const heartParticles = [];
-
-            // Generate Pink Heart Form Target Coordinates
-            for (let i = 0; i < particleCount; i++) {
-                const t = (i / particleCount) * Math.PI * 2;
-                // Parametric Heart Formula
-                const scale = Math.min(canvas.width, canvas.height) / 38;
-                const tx = cx + 16 * Math.pow(Math.sin(t), 3) * scale;
-                const ty = cy - (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) * scale;
-
-                heartParticles.push({
-                    x: cx, // Start from center
-                    y: cy,
-                    tx: tx,
-                    ty: ty,
-                    size: Math.random() * 2.5 + 1.2,
-                    color: `hsl(${320 + Math.random() * 30}, 100%, ${65 + Math.random() * 20}%)`,
-                    speed: 0.02 + Math.random() * 0.035
-                });
-            }
-
-            let progress = 0;
-            let textAlpha = 0;
-
-            function renderHeart() {
-                ctx.fillStyle = 'rgba(5, 3, 10, 0.25)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                progress += 0.015;
-
-                // Animate Grains expanding into Heart Shape
-                heartParticles.forEach(p => {
-                    p.x += (p.tx - p.x) * p.speed;
-                    p.y += (p.ty - p.y) * p.speed;
-
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color;
-                    ctx.shadowBlur = 12;
-                    ctx.shadowColor = '#ff4f87';
-                    ctx.fill();
-                });
-
-                // Display Center Glow Text after heart forms
-                if (progress > 0.6) {
-                    textAlpha = Math.min(1, textAlpha + 0.02);
-                    ctx.save();
-                    ctx.globalAlpha = textAlpha;
-                    ctx.font = `bold ${Math.min(canvas.width * 0.055, 36)}px 'Fredoka One', cursive`;
-                    ctx.fillStyle = '#ffffff';
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.shadowBlur = 20;
-                    ctx.shadowColor = '#ff69b4';
-                    ctx.fillText("HAPPY BIRTHDAY ONCE AGAIN!", cx, cy);
-                    ctx.restore();
+                    setTimeout(() => {
+                        star.style.opacity = Math.random() * 0.8 + 0.2;
+                    }, Math.random() * 2000);
                 }
+            }, 800);
 
-                requestAnimationFrame(renderHeart);
-            }
-
-            renderHeart();
+            // Final text fades in smoothly
+            setTimeout(() => {
+                document.getElementById('finalWishText').style.opacity = '1';
+                confetti({ particleCount: 50, spread: 100, origin: { y: 0.4 } });
+            }, 2500);
         }
     </script>
 </body>

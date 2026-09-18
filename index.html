@@ -356,6 +356,7 @@
             width: 100%;
             height: auto;
             border-radius: 20px;
+            cursor: pointer;
         }
 
         .mic-panel {
@@ -399,7 +400,7 @@
             transition: width 0.1s ease;
         }
 
-        /* Dark Butterfly Finale Overlay */
+        /* Dark Pink Heart Finale Overlay */
         #finaleOverlay {
             position: fixed;
             top: 0;
@@ -478,7 +479,7 @@
                 </div>
             </div>
 
-            <!-- Question 1 Box -->
+            <!-- Question Box -->
             <div class="question-box">
                 <div class="question-title">Do you like me? 🥺</div>
                 <div class="btn-group" id="btnGroup1">
@@ -529,19 +530,78 @@
         </div>
     </div>
 
-    <!-- DARK GLOWING BUTTERFLY FINALE OVERLAY -->
+    <!-- DARK PINK HEART FINALE OVERLAY -->
     <div id="finaleOverlay">
         <canvas id="finaleCanvas"></canvas>
     </div>
 
     <script>
+        /* ================= SYNTHESIZED SOUND EFFECTS ENGINE ================= */
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'open') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.35);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
+                    osc.start(now); osc.stop(now + 0.35);
+                } else if (type === 'type') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(600 + Math.random() * 300, now);
+                    gain.gain.setValueAtTime(0.04, now);
+                    gain.gain.linearRampToValueAtTime(0.001, now + 0.04);
+                    osc.start(now); osc.stop(now + 0.04);
+                } else if (type === 'pop') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.exponentialRampToValueAtTime(1200, now + 0.12);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+                    osc.start(now); osc.stop(now + 0.12);
+                } else if (type === 'blow') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(200, now);
+                    osc.frequency.linearRampToValueAtTime(100, now + 0.4);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
+                    osc.start(now); osc.stop(now + 0.4);
+                } else if (type === 'cut') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.1);
+                    osc.frequency.setValueAtTime(783.99, now + 0.2);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
+                    osc.start(now); osc.stop(now + 0.4);
+                } else if (type === 'heart') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.8);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.8);
+                    osc.start(now); osc.stop(now + 0.8);
+                }
+            } catch (e) {}
+        }
+
         /* ================= AMBIENT BACKGROUND ELEMENTS ================= */
         function initAmbientBackground() {
             const layer = document.getElementById('ambientLayer');
             const balloonEmojis = ['🎈', '💖', '✨', '🌸', '🎁'];
             const butterflyEmojis = ['🦋', '✨'];
 
-            // Spawn Balloons
             for (let i = 0; i < 14; i++) {
                 const b = document.createElement('div');
                 b.className = 'floating-balloon';
@@ -552,7 +612,6 @@
                 layer.appendChild(b);
             }
 
-            // Spawn Butterflies
             for (let i = 0; i < 6; i++) {
                 const bf = document.createElement('div');
                 bf.className = 'floating-butterfly';
@@ -567,24 +626,24 @@
 
         /* ================= PAGE NAVIGATION ================= */
         function goToPage(pageNum) {
+            playSound('pop');
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page' + pageNum).classList.add('active');
 
             if (pageNum === 3) {
-                drawRealisticCake(true); // Draw cake with lit candles
+                drawRealisticCake(true);
             }
         }
 
         /* ================= PAGE 1: TYPEWRITER & LETTER ================= */
         function openLetter() {
+            playSound('open');
             document.getElementById('envelopeWrapper').style.display = 'none';
             const parchment = document.getElementById('parchmentPaper');
             parchment.style.display = 'flex';
 
-            // Confetti Burst
             confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
 
-            // Fast Typewriter Speed (1.5x)
             const headingText = "Happy 17th Birthday!";
             const sentenceText = "Wishing you a supercalifragilisticexpialidocious & happiest birthday today! May your life get easier this year and you do such a lot of great things. 💕✨";
 
@@ -596,7 +655,8 @@
                 if (hIdx < headingText.length) {
                     headingEl.textContent += headingText.charAt(hIdx);
                     hIdx++;
-                    setTimeout(typeHeading, 30); // Fast speed
+                    playSound('type');
+                    setTimeout(typeHeading, 30);
                 } else {
                     setTimeout(typeSentence, 200);
                 }
@@ -606,7 +666,8 @@
                 if (sIdx < sentenceText.length) {
                     sentenceEl.textContent += sentenceText.charAt(sIdx);
                     sIdx++;
-                    setTimeout(typeSentence, 20); // 1.5x fast speed
+                    playSound('type');
+                    setTimeout(typeSentence, 20);
                 } else {
                     document.getElementById('p1NextBtn').style.display = 'inline-flex';
                 }
@@ -617,25 +678,27 @@
 
         /* ================= PAGE 2: DODGING NO BUTTON ================= */
         function dodgeNoButton(btn) {
+            playSound('pop');
             const x = Math.random() * 160 - 80;
             const y = Math.random() * 120 - 60;
             btn.style.transform = `translate(${x}px, ${y}px)`;
         }
 
         function showSureModal() {
+            playSound('pop');
             document.getElementById('sureModal').style.display = 'flex';
         }
 
         function confirmYesAnswer() {
+            playSound('pop');
             document.getElementById('sureModal').style.display = 'none';
             confetti({ particleCount: 80, spread: 80, origin: { y: 0.5 } });
             goToPage(3);
         }
 
-        /* ================= PAGE 3: REALISTIC CAKE & MIC BLOWING ================= */
+        /* ================= PAGE 3: REALISTIC CAKE & MIC FIX ================= */
         let candleLit = true;
-        let cakeIsCut = false;
-        let audioContext, analyser, micStream;
+        let micStream, audioContextMic, analyserMic;
 
         function drawRealisticCake(isLit = true, isCut = false) {
             const canvas = document.getElementById('cakeCanvas');
@@ -652,7 +715,7 @@
             ctx.shadowBlur = 10;
             ctx.fill();
 
-            // Bottom Layer (Rich Dark Chocolate)
+            // Bottom Layer (Dark Chocolate)
             ctx.beginPath();
             ctx.ellipse(cx, 220, 100, 25, 0, 0, Math.PI * 2);
             ctx.fillStyle = '#3d2314';
@@ -678,7 +741,7 @@
             ctx.ellipse(cx, 130, 80, 20, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Strawberries / Toppings
+            // Strawberries
             for (let i = -2; i <= 2; i++) {
                 ctx.beginPath();
                 ctx.arc(cx + i * 28, 122, 8, 0, Math.PI * 2);
@@ -686,7 +749,7 @@
                 ctx.fill();
             }
 
-            // Cake Cut Slice Line
+            // Cake Slice Cut Line
             if (isCut) {
                 ctx.beginPath();
                 ctx.moveTo(cx, 130);
@@ -700,11 +763,9 @@
             // Candles
             const candlePositions = [-30, 0, 30];
             candlePositions.forEach(pos => {
-                // Candle Stick
                 ctx.fillStyle = '#38bdf8';
                 ctx.fillRect(cx + pos - 3, 85, 6, 35);
 
-                // Flame
                 if (isLit) {
                     ctx.beginPath();
                     ctx.ellipse(cx + pos, 76, 5, 10, 0, 0, Math.PI * 2);
@@ -718,7 +779,6 @@
                     ctx.fillStyle = '#ffffff';
                     ctx.fill();
                 } else {
-                    // Smoke
                     ctx.beginPath();
                     ctx.arc(cx + pos, 75, 4, 0, Math.PI * 2);
                     ctx.fillStyle = 'rgba(150,150,150,0.5)';
@@ -727,40 +787,54 @@
             });
         }
 
+        // Tap candle manual blow fallback
+        document.getElementById('cakeCanvas').addEventListener('click', () => {
+            if (candleLit) extinguishCandles();
+        });
+
         async function initMicrophone() {
+            playSound('pop');
             try {
-                micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                analyser = audioContext.createAnalyser();
-                const source = audioContext.createMediaStreamSource(micStream);
-                analyser.fftSize = 256;
-                source.connect(analyser);
+                micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                audioContextMic = new (window.AudioContext || window.webkitAudioContext)();
+                
+                if (audioContextMic.state === 'suspended') {
+                    await audioContextMic.resume();
+                }
+
+                analyserMic = audioContextMic.createAnalyser();
+                analyserMic.fftSize = 512;
+                analyserMic.smoothingTimeConstant = 0.2;
+
+                const source = audioContextMic.createMediaStreamSource(micStream);
+                source.connect(analyserMic);
 
                 document.getElementById('enableMicBtn').style.display = 'none';
                 document.getElementById('micProgress').style.display = 'block';
-                document.getElementById('micStatus').innerText = "Mic Active! Blow gently into your mic... 🌬️";
+                document.getElementById('micStatus').innerText = "Mic Active! Blow air directly into microphone... 🌬️";
 
                 detectBlow();
             } catch (err) {
-                document.getElementById('micStatus').innerText = "Mic Permission Denied. Tap candle to blow out manually!";
-                document.getElementById('cakeCanvas').onclick = extinguishCandles;
+                document.getElementById('micStatus').innerText = "Mic unavailable. Tap candles directly on screen to blow out! 🕯️";
             }
         }
 
         function detectBlow() {
             if (!candleLit) return;
-            const data = new Uint8Array(analyser.frequencyBinCount);
-            analyser.getByteFrequencyData(data);
+            const data = new Uint8Array(analyserMic.frequencyBinCount);
+            analyserMic.getByteFrequencyData(data);
 
             let sum = 0;
-            for (let i = 10; i < data.length; i++) sum += data[i];
-            let average = sum / (data.length - 10);
+            for (let i = 0; i < data.length; i++) {
+                sum += data[i];
+            }
+            let average = sum / data.length;
 
             const progressBar = document.getElementById('micBar');
-            let percentage = Math.min(100, (average / 40) * 100);
+            let percentage = Math.min(100, (average / 30) * 100);
             progressBar.style.width = percentage + '%';
 
-            if (average > 35) {
+            if (average > 25) {
                 extinguishCandles();
                 return;
             }
@@ -768,6 +842,7 @@
         }
 
         function extinguishCandles() {
+            playSound('blow');
             candleLit = false;
             drawRealisticCake(false, false);
             confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
@@ -779,8 +854,9 @@
             if (micStream) micStream.getTracks().forEach(t => t.stop());
         }
 
-        /* ================= DARK GLOWING BUTTERFLY FINALE ================= */
+        /* ================= DARK PINK HEART FINALE ================= */
         function cutCakeAndTriggerFinale() {
+            playSound('cut');
             drawRealisticCake(false, true);
             confetti({ particleCount: 100, spread: 90, origin: { y: 0.5 } });
 
@@ -788,104 +864,84 @@
                 const overlay = document.getElementById('finaleOverlay');
                 overlay.style.display = 'block';
                 setTimeout(() => overlay.style.opacity = '1', 50);
-                startGlowingButterflyEngine();
+                startGlowingPinkHeartEngine();
             }, 1200);
         }
 
-        function startGlowingButterflyEngine() {
+        function startGlowingPinkHeartEngine() {
+            playSound('heart');
             const canvas = document.getElementById('finaleCanvas');
             const ctx = canvas.getContext('2d');
 
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            // Parametric Butterfly Generator
-            const particleCount = 400;
-            const dots = [];
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2 - 30;
 
+            const particleCount = 450;
+            const heartParticles = [];
+
+            // Generate Pink Heart Form Target Coordinates
             for (let i = 0; i < particleCount; i++) {
-                const t = (i / particleCount) * Math.PI * 12;
-                const r = Math.exp(Math.cos(t)) - 2 * Math.cos(4 * t) + Math.pow(Math.sin(t / 12), 5);
-                const scale = 11;
-                dots.push({
-                    tx: r * Math.sin(t) * scale,
-                    ty: -r * Math.cos(t) * scale,
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    color: `hsl(${(i / particleCount) * 360}, 100%, 70%)`
+                const t = (i / particleCount) * Math.PI * 2;
+                // Parametric Heart Formula
+                const scale = Math.min(canvas.width, canvas.height) / 38;
+                const tx = cx + 16 * Math.pow(Math.sin(t), 3) * scale;
+                const ty = cy - (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) * scale;
+
+                heartParticles.push({
+                    x: cx, // Start from center
+                    y: cy,
+                    tx: tx,
+                    ty: ty,
+                    size: Math.random() * 2.5 + 1.2,
+                    color: `hsl(${320 + Math.random() * 30}, 100%, ${65 + Math.random() * 20}%)`,
+                    speed: 0.02 + Math.random() * 0.035
                 });
             }
 
-            // Text Map Sampling for "Happy Birthday Once Again! ✨"
-            const textCanvas = document.createElement('canvas');
-            const tCtx = textCanvas.getContext('2d');
-            textCanvas.width = canvas.width;
-            textCanvas.height = canvas.height;
+            let progress = 0;
+            let textAlpha = 0;
 
-            const fontSize = Math.min(canvas.width * 0.07, 55);
-            tCtx.font = `bold ${fontSize}px 'Fredoka One', cursive`;
-            tCtx.fillStyle = '#ffffff';
-            tCtx.textAlign = 'center';
-            tCtx.fillText("Happy Birthday Once Again! ✨", canvas.width / 2, canvas.height / 2 + 100);
-
-            const imgData = tCtx.getImageData(0, 0, canvas.width, canvas.height).data;
-            const textParticles = [];
-            for (let y = 0; y < canvas.height; y += 5) {
-                for (let x = 0; x < canvas.width; x += 5) {
-                    if (imgData[(y * canvas.width + x) * 4 + 3] > 128) {
-                        textParticles.push({ x, y, color: '#00f2fe' });
-                    }
-                }
-            }
-
-            let bx = canvas.width / 2;
-            let by = canvas.height / 2 - 50;
-            let flap = 0;
-            let frame = 0;
-
-            function render() {
-                ctx.fillStyle = 'rgba(5, 3, 10, 0.2)';
+            function renderHeart() {
+                ctx.fillStyle = 'rgba(5, 3, 10, 0.25)';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                frame++;
-                flap += 0.2;
+                progress += 0.015;
 
-                // Move Butterfly dynamically
-                bx = canvas.width / 2 + Math.sin(frame * 0.03) * 120;
-                by = canvas.height / 2 - 50 + Math.cos(frame * 0.04) * 40;
+                // Animate Grains expanding into Heart Shape
+                heartParticles.forEach(p => {
+                    p.x += (p.tx - p.x) * p.speed;
+                    p.y += (p.ty - p.y) * p.speed;
 
-                // Draw Butterfly
-                ctx.save();
-                ctx.translate(bx, by);
-                dots.forEach(d => {
-                    const wx = d.tx * Math.sin(flap);
                     ctx.beginPath();
-                    ctx.arc(wx, d.ty, 2, 0, Math.PI * 2);
-                    ctx.fillStyle = d.color;
-                    ctx.shadowBlur = 8;
-                    ctx.shadowColor = d.color;
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.shadowBlur = 12;
+                    ctx.shadowColor = '#ff4f87';
                     ctx.fill();
                 });
-                ctx.restore();
 
-                // Gradually reveal glowing text particles
-                if (frame > 60) {
-                    textParticles.forEach((tp, idx) => {
-                        if (idx < frame * 15) {
-                            ctx.beginPath();
-                            ctx.arc(tp.x, tp.y, 1.8, 0, Math.PI * 2);
-                            ctx.fillStyle = tp.color;
-                            ctx.shadowBlur = 10;
-                            ctx.shadowColor = '#00f2fe';
-                            ctx.fill();
-                        }
-                    });
+                // Display Center Glow Text after heart forms
+                if (progress > 0.6) {
+                    textAlpha = Math.min(1, textAlpha + 0.02);
+                    ctx.save();
+                    ctx.globalAlpha = textAlpha;
+                    ctx.font = `bold ${Math.min(canvas.width * 0.055, 36)}px 'Fredoka One', cursive`;
+                    ctx.fillStyle = '#ffffff';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.shadowBlur = 20;
+                    ctx.shadowColor = '#ff69b4';
+                    ctx.fillText("HAPPY BIRTHDAY ONCE AGAIN!", cx, cy);
+                    ctx.restore();
                 }
 
-                requestAnimationFrame(render);
+                requestAnimationFrame(renderHeart);
             }
 
-            render();
+            renderHeart();
         }
     </script>
 </body>
